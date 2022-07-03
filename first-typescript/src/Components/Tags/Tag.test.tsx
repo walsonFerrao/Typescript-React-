@@ -1,21 +1,10 @@
 import { getAllByText, render, screen } from '@testing-library/react';
 import {Tags} from './Tag'
 
-
-
-
-
-
   let  arr: string[]
-
-
  arr=["walson","godwin","ferrao"]
 
-
-
-
 describe('testing the card component',()=>{
-
 
     test('checking the Tags component', () => {
         render(<Tags arr={arr} />);
@@ -30,10 +19,4 @@ describe('testing the card component',()=>{
 
       
       });
-      
-
-    
-
-
-
 })

@@ -2,6 +2,7 @@ import React from 'react';
 import { getAllByText, render, screen } from '@testing-library/react';
 import {MyCard} from './Card';
 
+
 interface Data {
     author: string;
     comment_text: null;
@@ -44,16 +45,33 @@ interface Data {
   
   }
 
-test('checking the card component', () => {
-  render(<MyCard prop={prop} />);
+describe('testing the card component',()=>{
 
-  const title = screen.getByText(/This is my book/i);
-  const author=screen.getAllByText(/walson/i)
-  const url=screen.getAllByText(/www.walson.in/i)
-  const createdat=screen.getByText("20/11/21")
-  expect(title).toBeInTheDocument();
-  expect(author[0]).toBeInTheDocument();
-  expect(url[0]).toBeInTheDocument();
-  expect(createdat).toBeInTheDocument();
 
-});
+    test('checking the card component', () => {
+        render(<MyCard prop={prop} />);
+      
+        const title = screen.getByText(/This is my book/i);
+        const author=screen.getAllByText(/walson/i)
+        const url=screen.getAllByText(/www.walson.in/i)
+        const createdat=screen.getByText("20/11/21")
+        expect(title).toBeInTheDocument();
+        expect(author[0]).toBeInTheDocument();
+        expect(url[0]).toBeInTheDocument();
+        expect(createdat).toBeInTheDocument();
+      
+      });
+      
+
+    test('checking the tag component',()=>{
+
+
+
+    })
+
+
+
+})
+
+
+

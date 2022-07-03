@@ -9,7 +9,7 @@ import App from './App';
 test('renders learn react link', () => {
   render(<App />);
 
-const searchinput=screen.getByPlaceholderText(/Search…/i)
+const searchinput=screen.getByPlaceholderText(/Search by author/i)
 expect(searchinput).toBeInTheDocument()
 
 

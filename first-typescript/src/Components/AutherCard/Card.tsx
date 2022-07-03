@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Tags } from '../Tags/Tag';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -59,7 +60,14 @@ interface myprop {
 
 
 export const MyCard: React.FC<myprop> = ({ prop }) => {
+const navigate=useNavigate()
 
+    function takemetofulldata()
+    {
+
+     navigate("/full",{state:prop})
+
+    }
 
 
     return (
@@ -71,7 +79,7 @@ export const MyCard: React.FC<myprop> = ({ prop }) => {
 
 
 
-            <Card sx={{ minWidth: 275, ml: 4, mr: 4, mb: 4, mt: 4, paddingLeft: 4, paddingTop: 2, paddingBottom: 2, backgroundColor: '#dbeee0' }}>
+            <Card sx={{ minWidth: 275, ml: 4, mr: 4, mb: 4, mt: 4, paddingLeft: 4, paddingTop: 2, paddingBottom: 2, backgroundColor: '#dbeee0' }} onClick={()=>{takemetofulldata()}}>
                 <CardContent>
                     <Typography sx={{ fontSize: 25 }} color="text.secondary" gutterBottom>
                         <Myheading>Title:</Myheading> {prop.title}

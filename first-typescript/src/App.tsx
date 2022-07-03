@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar'
 import {Mycomponent} from './Components/Body/Component'
+import {Route,Routes} from 'react-router-dom'
+import {Fulldata} from './Components/Fulldata/Fulldata'
 
 interface searchqueries{
 
@@ -20,13 +22,18 @@ const [searchobj,setsearchobj]=useState<searchqueries>({
   ishome:true
 })
 
-console.log(searchobj)
 
   return (
     <div >
       <Navbar searchobj={searchobj} setsearchobj={setsearchobj} /> 
       {/* <Body/> */}
-      <Mycomponent searchobj={searchobj}  setsearchobj={setsearchobj}   />
+      <Routes>
+      <Route path='/' element={<Mycomponent searchobj={searchobj}  setsearchobj={setsearchobj}   />
+} />
+
+      <Route path='/full' element={<Fulldata/>} />
+       
+      </Routes>
     </div>
   );
 }

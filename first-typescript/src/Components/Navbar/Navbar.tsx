@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -71,15 +72,19 @@ interface Prop {
 export default function SearchAppBar({searchobj,setsearchobj}:Prop) {
 
 
-
+const navigate=useNavigate()
 
 function mykeypress()
 {
+  navigate("/")
   setsearchobj({...searchobj,isquery:true,ishome:false})
 }
 
 function sethometrue()
 {
+
+  navigate("/")
+
   setsearchobj({...searchobj,isquery:true,ishome:true})
 
 }
@@ -117,7 +122,7 @@ function sethometrue()
             </SearchIconWrapper>
             <StyledInputBase
             value={searchobj.query}
-              placeholder="Search…"
+              placeholder="Search by author"
               inputProps={{ 'aria-label': 'search' }}
              onChange={(e)=>{setsearchobj({...searchobj,query:e.target.value})}}
             //  onKeyPress={(e)=>{mykeypress(e)}}
@@ -131,3 +136,4 @@ function sethometrue()
     </Box>
   );
 }
+   
