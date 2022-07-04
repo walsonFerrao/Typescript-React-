@@ -1,5 +1,5 @@
 import { getAllByText, render, screen } from '@testing-library/react';
-import {Tags} from './Tag'
+import {Tags} from '../Components/Tags/Tag'
 
   let  arr: string[]
  arr=["walson","godwin","ferrao"]

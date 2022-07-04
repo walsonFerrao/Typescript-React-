@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import Navbar from './Components/Navbar/Navbar'
-import {Mycomponent} from './Components/Body/Component'
+import {Mycomponent} from './Pages/Home'
 import {Route,Routes} from 'react-router-dom'
-import {Fulldata} from './Components/Fulldata/Fulldata'
+import {Fulldata} from './Pages/Fulldata'
 
 interface searchqueries{
 

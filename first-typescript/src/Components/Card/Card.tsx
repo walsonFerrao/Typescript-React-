@@ -1,13 +1,13 @@
 
 import * as React from 'react';
-
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Tags } from '../Tags/Tag';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-
+import SendIcon from '@mui/icons-material/Send';
 
 
 
@@ -79,7 +79,7 @@ const navigate=useNavigate()
 
 
 
-            <Card sx={{ minWidth: 275, ml: 4, mr: 4, mb: 4, mt: 4, paddingLeft: 4, paddingTop: 2, paddingBottom: 2, backgroundColor: '#dbeee0' }} onClick={()=>{takemetofulldata()}}>
+            <Card sx={{ minWidth: 275, ml: 4, mr: 4, mb: 4, mt: 4, paddingLeft: 4, paddingTop: 2, paddingBottom: 2, backgroundColor: '#dbeee0' }} >
                 <CardContent>
                     <Typography sx={{ fontSize: 25 }} color="text.secondary" gutterBottom>
                         <Myheading>Title:</Myheading> {prop.title}
@@ -93,18 +93,8 @@ const navigate=useNavigate()
                     <Typography sx={{ fontSize: 20, mt: 3 }} color="text.secondary">
                         <Myheading> Created at:</Myheading>   {prop.created_at}
                     </Typography>
-
-
                     <Tags arr={prop._tags}/>
-
-
-
-                    {/* <Myflex>
-                        <h3>Tags:</h3>
-                        {prop._tags.map((e: string) => <Typography sx={{ fontSize: 15, mt: 3 }} color="text.secondary">
-                            {e}
-                        </Typography>)}
-                    </Myflex> */}
+                    <Button variant="contained" endIcon={<SendIcon />}  onClick={()=>{takemetofulldata()}}>View full data</Button>
                 </CardContent>
             </Card>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { getAllByText, render, screen } from '@testing-library/react';
-import {MyCard} from './Card';
+import {MyCard} from '../Components/Card/Card';
 
 
 interface Data {
@@ -23,9 +23,7 @@ interface Data {
   
   }
   
-  
   let prop:Data={
-  
     author: "walson",
     comment_text: null,
     created_at: "20/11/21",
@@ -46,11 +44,8 @@ interface Data {
   }
 
 describe('testing the card component',()=>{
-
-
     test('checking the card component', () => {
         render(<MyCard prop={prop} />);
-      
         const title = screen.getByText(/This is my book/i);
         const author=screen.getAllByText(/walson/i)
         const url=screen.getAllByText(/www.walson.in/i)
@@ -59,18 +54,7 @@ describe('testing the card component',()=>{
         expect(author[0]).toBeInTheDocument();
         expect(url[0]).toBeInTheDocument();
         expect(createdat).toBeInTheDocument();
-      
       });
-      
-
-    test('checking the tag component',()=>{
-
-
-
-    })
-
-
-
 })
 
 

@@ -1,8 +1,9 @@
 import { type } from "@testing-library/user-event/dist/type";
 import { Component } from "react";
-import { MyCard } from '../AutherCard/Card';
-import {Returnerror} from './Returnerror'
+import { MyCard } from '../Components/Card/Card';
+import { Returnerror } from '../Components/Nothingfound/Returnerror'
 import { v4 as uuidv4 } from 'uuid';
+import { Waypoint } from "react-waypoint";
 
 interface Data {
   author: string;
@@ -24,9 +25,6 @@ interface Data {
 
 }
 
-
-
-
 type Mystate = {
 
   data: Data[];
@@ -45,14 +43,7 @@ interface Myprops {
   setsearchobj: React.Dispatch<React.SetStateAction<searchqueries>>
 }
 
-
-
-
-
-
-
-
-
+// this is my Component where I all the cards are displayed
 
 
 export class Mycomponent extends Component<Myprops, Mystate>{
@@ -63,22 +54,25 @@ export class Mycomponent extends Component<Myprops, Mystate>{
     super(props);
     this.state = {
       data: [],
-      pagenumber: 1,
+      pagenumber: 0,
       tempdata: []
     }
     this.myown = null
   }
-
-
   // writing a function resposible for fetching the data
-  getthedata = function (this: Mycomponent) {
+  getthedata = () => {
+    console.log(this.state.pagenumber)
     fetch(`https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${this.state.pagenumber}`)
       .then((res) => res.json())
-      .then((rea) => { this.setState({ ...this.state, data: [...this.state.data, ...rea.hits], pagenumber: this.state.pagenumber + 1 }) })
+      .then((rea) => {
+        this.setState({ ...this.state, data: [...this.state.data, ...rea.hits], pagenumber: this.state.pagenumber + 1 })
+      })
       .catch((err) => { console.log(err) })
   }
 
-
+  trialfunc = function () {
+    console.log("i am trial")
+  }
 
   // fetching the data for every 10 seconds
   componentDidMount() {
@@ -86,81 +80,42 @@ export class Mycomponent extends Component<Myprops, Mystate>{
       console.log("i am post")
       this.getthedata()
     }, 10000)
-
   }
-
   // since the body and search query is in the different component using a temporary parameter for lifting the state up so that both the component can commnuicate
-
   ifthequeryisfalse() {
     this.props.setsearchobj({ ...this.props.searchobj, isquery: false })
-
     if (this.props.searchobj.query.length > 0) {
-
-
       let myarr: Data[]
       myarr = this.state.data.filter((e) => { return (e.author == this.props.searchobj.query) })
-
       this.setState({ ...this.state, tempdata: myarr })
-
       this.props.setsearchobj({ ...this.props.searchobj, query: "", isquery: false })
-
     }
-
-
   }
-
-
-
-
-  render() {
-
-    if (this.state.pagenumber == 1) {
-      this.getthedata()
-    }
-
+  render(this: Mycomponent) {
     if (this.props.searchobj.isquery == true) {
       this.ifthequeryisfalse()
-
     }
-
-
-// adding function for fetching the data whenever we scroll the scroller to end 
-
-    window.addEventListener("scroll", () => {
-      
-      const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-
-      if (scrollTop + clientHeight >= scrollHeight) {
-        this.getthedata()
-      }
-
-    })
-
-    // console.log(this.state.data)
-
     if (!this.props.searchobj.ishome) {
-
       if (this.state.tempdata.length == 0) {
         return (
-         <Returnerror/>
+          <Returnerror />
         )
       }
       else {
-        return (<> {this.state.tempdata?.map((e) => <MyCard key={uuidv4()} prop={e} />)}  </>)
-
+        return (<>
+          {this.state.tempdata?.map((e) => <MyCard key={uuidv4()} prop={e} />)} </>)
       }
-
     }
     else {
       return (<>
-        {this.state.data?.map((e) => <MyCard key={uuidv4()} prop={e} />)}
+        <div>
+          {this.state.data?.map((e) => <MyCard key={uuidv4()} prop={e} />)}
+          <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
+
+        </div>
       </>)
     }
 
   }
-
-
-
-
 
 }
