@@ -1,17 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-
-
-
-
-test('renders learn react link', () => {
+test("renders learn react link", () => {
   render(<App />);
 
-const searchinput=screen.getByPlaceholderText(/Search by author/i)
-expect(searchinput).toBeInTheDocument()
-
-
- 
+  const searchinput = screen.getByPlaceholderText(/Search by author/i);
+  expect(searchinput).toBeInTheDocument();
 });
