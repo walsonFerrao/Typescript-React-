@@ -74,6 +74,7 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Myprops) {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={()=>{navigate("/")}}
           >
             <HomeIcon />
           </IconButton>
