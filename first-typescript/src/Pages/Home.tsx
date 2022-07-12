@@ -60,15 +60,16 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   getthedata = () => {
     if (this.state.pagenumber <= 50) {
       console.log(this.state.pagenumber);
+      let mypage=this.state.pagenumber+1;
       fetch(
-        `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${this.state.pagenumber}`
+        `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${mypage}`
       )
         .then((res) => res.json())
         .then((rea) => {
           this.setState({
             ...this.state,
             data: [...this.state.data, ...rea.hits],
-            pagenumber: this.state.pagenumber + 1,
+            pagenumber:mypage,
           });
         })
         .catch((err) => {
@@ -94,7 +95,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   }
   // since the body and search query is in the different component using a temporary parameter for lifting the state up so that both the component can commnuicate
 
-  render(this: Mycomponent) {
+  render() {
     if (!this.props.searchobj.query) {
       return (
         <div>
