@@ -1,19 +1,18 @@
 import { useLocation } from "react-router-dom";
-
+import { Card } from "@mui/material";
 export const Fulldata = () => {
   const location = useLocation();
 
   return (
     <>
-    
+    <Card sx={{padding:5,paddingRight:4}} >
 
-      <div style={{padding:"30px"}}>
 
       
       <h1>the full data is</h1>
        
       <p>{JSON.stringify(location.state)}</p>
-      </div>
+      </Card>
     </>
   );
 };
