@@ -98,7 +98,7 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Myprops) {
                 var a;
                 if (a) {
                   clearTimeout(a);
-                } else
+                }
                   a = setTimeout(() => {
                     setsearchobj({ ...searchobj, query: e.target.value });
                   }, 2);
