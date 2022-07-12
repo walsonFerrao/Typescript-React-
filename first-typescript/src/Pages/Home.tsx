@@ -56,24 +56,26 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   }
 
   // writing a function resposible for fetching the data
-  getthedata = () => {
+   getthedata =async () => {
     if (this.state.pagenumber <= 50) {
       console.log(this.state.pagenumber);
-      fetch(
+     let aa=await fetch(
         `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${this.state.pagenumber}`
       )
-        .then((res) => res.json())
-        .then((rea) => {
+      let bb=await aa.json()
+        // .then((res) => res.json())
+        // .then((rea) => {
           this.setState({
             ...this.state,
-            data: [...this.state.data, ...rea.hits],
+            data: [...this.state.data, ...bb.hits],
             pagenumber: this.state.pagenumber + 1,
           });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+        // })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
+        }
   };
 
   trialfunc = function () {
