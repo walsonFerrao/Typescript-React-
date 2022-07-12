@@ -4,6 +4,7 @@ import { MyCard } from "../Components/Card/Card";
 import { Returnerror } from "../Components/Nothingfound/Returnerror";
 import { v4 as uuidv4 } from "uuid";
 import { Waypoint } from "react-waypoint";
+import SearchAppBar from "../Components/Navbar/Navbar";
 
 interface Data {
   author: string;
@@ -56,26 +57,24 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   }
 
   // writing a function resposible for fetching the data
-   getthedata =async () => {
+  getthedata = () => {
     if (this.state.pagenumber <= 50) {
       console.log(this.state.pagenumber);
-     let aa=await fetch(
+      fetch(
         `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${this.state.pagenumber}`
       )
-      let bb=await aa.json()
-        // .then((res) => res.json())
-        // .then((rea) => {
+        .then((res) => res.json())
+        .then((rea) => {
           this.setState({
             ...this.state,
-            data: [...this.state.data, ...bb.hits],
+            data: [...this.state.data, ...rea.hits],
             pagenumber: this.state.pagenumber + 1,
           });
-        // })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
-        }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   trialfunc = function () {
@@ -102,7 +101,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
           {this.state.data.map((e) => (
             <MyCard prop={e}  key={uuidv4()}/>
           ))}
-          <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
+          <Waypoint bottomOffset="-13px" onEnter={this.getthedata}></Waypoint>
         </div>
       );
     } else {
@@ -125,7 +124,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
             {myarr?.map((e) => (
               <MyCard prop={e} key={uuidv4()} />
             ))}
-            {/* <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint> */}
+            <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
           </div>
         );
     }

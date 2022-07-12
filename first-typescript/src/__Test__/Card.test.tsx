@@ -1,6 +1,7 @@
 import React from 'react';
 import { getAllByText, render, screen } from '@testing-library/react';
 import {MyCard} from '../Components/Card/Card';
+import {BrowserRouter} from 'react-router-dom'
 
 
 interface Data {
@@ -45,7 +46,11 @@ interface Data {
 
 describe('testing the card component',()=>{
     test('checking the card component', () => {
-        render(<MyCard prop={prop} />);
+        render(
+          <BrowserRouter>
+        <MyCard prop={prop}/>
+        </BrowserRouter>
+        );
         const title = screen.getByText(/This is my book/i);
         const author=screen.getAllByText(/walson/i)
         const url=screen.getAllByText(/www.walson.in/i)
