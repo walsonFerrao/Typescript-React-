@@ -60,16 +60,17 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   getthedata = () => {
     if (this.state.pagenumber <= 50) {
       console.log(this.state.pagenumber);
-      let mypage=this.state.pagenumber+1;
+
+      this.setState({...this.state,pagenumber:this.state.pagenumber+1})
+
       fetch(
-        `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${mypage}`
+        `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${this.state.pagenumber}`
       )
         .then((res) => res.json())
         .then((rea) => {
           this.setState({
             ...this.state,
             data: [...this.state.data, ...rea.hits],
-            pagenumber:mypage,
           });
         })
         .catch((err) => {
