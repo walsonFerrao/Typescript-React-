@@ -15,8 +15,7 @@ export const Returnerror = () => {
             paddingTop: "25px",
           }}
         >
-          There is No result by this Auther Please click on Home Button to go
-          back to home.
+          There is No result by this Auther Please change the input
         </Alert>
       </Stack>
     </>

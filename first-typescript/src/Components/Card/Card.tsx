@@ -71,7 +71,7 @@ export const MyCard: React.FC<myprop> = ({ prop }) => {
             <Myheading>Author:</Myheading> {prop.author}
           </Typography>
           <Typography variant="h6" component="div">
-            <Myheading> URL:</Myheading> <a href={prop.url}>{prop.url}</a>
+            <Myheading> URL:</Myheading> <a href={prop.url}  target="_blank">{prop.url}</a>
           </Typography>
           <Typography sx={{ fontSize: 20, mt: 3 }} color="text.secondary">
             <Myheading> Created at:</Myheading> {prop.created_at}

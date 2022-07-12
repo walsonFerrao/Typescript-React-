@@ -5,9 +5,15 @@ export const Fulldata = () => {
 
   return (
     <>
-      <h1>the full data is</h1>
+    
 
-      <h3>{JSON.stringify(location.state)}</h3>
+      <div style={{padding:"30px"}}>
+
+      
+      <h1>the full data is</h1>
+       
+      <p>{JSON.stringify(location.state)}</p>
+      </div>
     </>
   );
 };

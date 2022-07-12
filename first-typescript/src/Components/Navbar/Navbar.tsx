@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
@@ -55,28 +54,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 interface searchqueries {
   query: string;
-  isquery: boolean;
-  ishome: boolean;
 }
 
-interface Prop {
+interface Myprops {
   searchobj: searchqueries;
   setsearchobj: React.Dispatch<React.SetStateAction<searchqueries>>;
 }
 
-export default function SearchAppBar({ searchobj, setsearchobj }: Prop) {
+export default function SearchAppBar({ searchobj, setsearchobj }: Myprops) {
   const navigate = useNavigate();
-
-  function mykeypress() {
-    navigate("/");
-    setsearchobj({ ...searchobj, isquery: true, ishome: false });
-  }
-
-  function sethometrue() {
-    navigate("/");
-
-    setsearchobj({ ...searchobj, isquery: true, ishome: true });
-  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -88,7 +74,6 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Prop) {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
-            onClick={sethometrue}
           >
             <HomeIcon />
           </IconButton>
@@ -105,23 +90,20 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Prop) {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              value={searchobj.query}
               placeholder="Search by author"
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => {
-                setsearchobj({ ...searchobj, query: e.target.value });
+                navigate("/");
+                var a;
+                if (a) {
+                  clearTimeout(a);
+                } else
+                  a = setTimeout(() => {
+                    setsearchobj({ ...searchobj, query: e.target.value });
+                  }, 2);
               }}
-              //  onKeyPress={(e)=>{mykeypress(e)}}
             />
           </Search>
-
-          <Button
-            variant="contained"
-            style={{ marginLeft: "5px" }}
-            onClick={mykeypress}
-          >
-            Search
-          </Button>
         </Toolbar>
       </AppBar>
     </Box>
