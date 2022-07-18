@@ -75,6 +75,7 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Myprops) {
             aria-label="open drawer"
             sx={{ mr: 2 }}
             onClick={()=>{navigate("/")}}
+            data-testid="my-icon"
           >
             <HomeIcon />
           </IconButton>

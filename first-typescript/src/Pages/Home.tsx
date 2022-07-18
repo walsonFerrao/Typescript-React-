@@ -79,9 +79,9 @@ export class Mycomponent extends Component<Myprops, Mystate> {
     }
   };
 
-  trialfunc = function () {
-    console.log("i am trial");
-  };
+  // trialfunc = function () {
+  //   console.log("i am trial");
+  // };
 
   queryfunction(myqyery: string) {
     this.setState({ ...this.state, query: myqyery });
@@ -94,14 +94,16 @@ export class Mycomponent extends Component<Myprops, Mystate> {
       this.getthedata();
     }, 10000);
   }
+
+  
   // since the body and search query is in the different component using a temporary parameter for lifting the state up so that both the component can commnuicate
 
   render() {
     if (!this.props.searchobj.query) {
       return (
-        <div>
-          {this.state.data.map((e) => (
-            <MyCard prop={e}  key={uuidv4()}/>
+        <div data-testid="dataifnoquery">
+          {this.state.data.map((e,index) => (
+            <MyCard prop={e}  key={uuidv4()}  myown={this.myown} index={index} />
           ))}
           <Waypoint bottomOffset="-13px" onEnter={this.getthedata}></Waypoint>
         </div>
@@ -123,8 +125,8 @@ export class Mycomponent extends Component<Myprops, Mystate> {
       } else
         return (
           <div>
-            {myarr?.map((e) => (
-              <MyCard prop={e} key={uuidv4()} />
+            {myarr?.map((e,index) => (
+              <MyCard prop={e} key={uuidv4()}  myown={this.myown} index={index}  />
             ))}
             <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
           </div>

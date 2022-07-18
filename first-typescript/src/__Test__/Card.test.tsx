@@ -27,7 +27,7 @@ interface Data {
   let prop:Data={
     author: "walson",
     comment_text: null,
-    created_at: "20/11/21",
+    created_at: "2022-07-17T14:04:14.000Z",
     created_at_i: 12,
     num_comments: 12,
     objectID: "123",
@@ -44,21 +44,29 @@ interface Data {
   
   }
 
+  let myown:any=null
+
+// let mydate=new Date(Date.parse(prop.created_at)).toDateString()
+
+
+
+
 describe('testing the card component',()=>{
     test('checking the card component', () => {
         render(
           <BrowserRouter>
-        <MyCard prop={prop}/>
+        <MyCard prop={prop} myown={myown} index={1} />
         </BrowserRouter>
         );
         const title = screen.getByText(/This is my book/i);
         const author=screen.getAllByText(/walson/i)
         const url=screen.getAllByText(/www.walson.in/i)
-        const createdat=screen.getByText("20/11/21")
+        const created=screen.getAllByText(/Created at:/i)
         expect(title).toBeInTheDocument();
         expect(author[0]).toBeInTheDocument();
         expect(url[0]).toBeInTheDocument();
-        expect(createdat).toBeInTheDocument();
+        expect(created[0]).toBeInTheDocument();
+
       });
 })
 

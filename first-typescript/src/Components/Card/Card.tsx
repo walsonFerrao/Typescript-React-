@@ -7,7 +7,6 @@ import { Tags } from "../Tags/Tag";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
-
 const Myheading = styled("span")(() => ({
   fontSize: "25px",
   fontWeight: "bolder",
@@ -17,6 +16,10 @@ const Myflex = styled("div")(() => ({
   display: "flex",
   gap: "5%",
 }));
+
+
+
+
 
 interface Data {
   author: string;
@@ -39,15 +42,16 @@ interface Data {
 
 interface myprop {
   prop: Data;
+  myown:any;
+  index:number;
 }
 
-export const MyCard: React.FC<myprop> = ({ prop }) => {
+export const MyCard: React.FC<myprop> = ({ prop,myown,index }) => {
   const navigate = useNavigate();
 
   function takemetofulldata() {
     navigate("/full", { state: prop });
   }
-
   return (
     <>
       <Card
@@ -61,11 +65,12 @@ export const MyCard: React.FC<myprop> = ({ prop }) => {
           paddingTop: 2,
           paddingBottom: 2,
           backgroundColor: "#dbeee0",
+          
         }}
       >
-        <CardContent>
+        <CardContent  data-testid={`element${index}`}>
           <Typography sx={{ fontSize: 25 }} color="text.secondary" gutterBottom>
-            <Myheading>Title:</Myheading> {prop.title}
+            <Myheading   >Title:</Myheading> {prop.title}
           </Typography>
           <Typography sx={{ fontSize: 25 }} color="text.secondary" gutterBottom>
             <Myheading>Author:</Myheading> {prop.author}
@@ -74,13 +79,15 @@ export const MyCard: React.FC<myprop> = ({ prop }) => {
             <Myheading> URL:</Myheading> <a href={prop.url}  target="_blank">{prop.url}</a>
           </Typography>
           <Typography sx={{ fontSize: 20, mt: 3 }} color="text.secondary">
-            <Myheading> Created at:</Myheading> {prop.created_at}
+            <Myheading> Created at:</Myheading> {new Date(Date.parse(prop.created_at)).toDateString() + "   "+"("+  new Date(Date.parse(prop.created_at)).toLocaleTimeString() + ")"}
           </Typography>
           <Tags arr={prop._tags} />
           <Button
             variant="contained"
             endIcon={<SendIcon />}
             onClick={() => {
+              // cleartheinterval()
+              clearInterval(myown)
               takemetofulldata();
             }}
           >

@@ -1,12 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import App from "./App";
 import {BrowserRouter} from 'react-router-dom'
+import SearchAppBar from '../Components/Navbar/Navbar'
+
+
+interface searchqueries {
+    query: string;
+  }
+  
+  interface Myprops {
+    searchobj: searchqueries;
+    setsearchobj: React.Dispatch<React.SetStateAction<searchqueries>>;
+  }
+
+
 
 test("renders learn react link", () => {
   render(
     <BrowserRouter>
-  <App />
+  <SearchAppBar searchobj={{query:""}} setsearchobj={()=>{}} />
   </BrowserRouter>
   );
 
@@ -16,6 +28,9 @@ test("renders learn react link", () => {
 const assignemnt=screen.getByText(/ASSIGNMENT/i)
 
 expect(assignemnt).toBeInTheDocument();
+
+const myicon=screen.getByTestId("my-icon")
+expect(myicon).toBeInTheDocument()
 
 
 

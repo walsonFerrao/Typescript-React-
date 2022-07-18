@@ -11,7 +11,7 @@ export const Fulldata = () => {
       
       <h1>the full data is</h1>
        
-      <p>{JSON.stringify(location.state)}</p>
+      <p style={{maxWidth:"150ch"}}  >{JSON.stringify(location.state)}</p>
       </Card>
     </>
   );
