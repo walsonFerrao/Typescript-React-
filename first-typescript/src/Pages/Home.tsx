@@ -37,14 +37,13 @@ interface searchqueries {
 
 interface Myprops {
   searchobj: searchqueries;
-  setsearchobj: React.Dispatch<React.SetStateAction<searchqueries>>;
 }
 
 // this is my Component where I all the cards are displayed
 
 export class Mycomponent extends Component<Myprops, Mystate> {
   myown: null | ReturnType<typeof setTimeout>;
-
+  myarray:null | Data[]
   constructor(props: Myprops) {
     super(props);
     this.state = {
@@ -54,6 +53,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
       query: "",
     };
     this.myown = null;
+    this.myarray=[]
   }
 
   // writing a function resposible for fetching the data
@@ -83,9 +83,9 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   //   console.log("i am trial");
   // };
 
-  queryfunction(myqyery: string) {
-    this.setState({ ...this.state, query: myqyery });
-  }
+  // queryfunction(myqyery: string) {
+  //   this.setState({ ...this.state, query: myqyery });
+  // }
 
   // fetching the data for every 10 seconds
   componentDidMount() {
@@ -109,7 +109,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
         </div>
       );
     } else {
-      let myarr = this.state.data.filter((e) => {
+     this.myarray = this.state.data.filter((e) => {
         return (
           e.author
             .toLowerCase()
@@ -120,16 +120,18 @@ export class Mycomponent extends Component<Myprops, Mystate> {
         );
       });
 
-      if (myarr.length == 0) {
-        return <Returnerror />;
+
+      if (this.myarray.length !== 0) {
+        return (<div data-testid="dataifquery">
+        {this.myarray?.map((e,index) => (
+          <MyCard prop={e} key={uuidv4()}  myown={this.myown} index={index}  />
+        ))}
+        <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
+      </div>);
       } else
+      
         return (
-          <div>
-            {myarr?.map((e,index) => (
-              <MyCard prop={e} key={uuidv4()}  myown={this.myown} index={index}  />
-            ))}
-            <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
-          </div>
+          <Returnerror />
         );
     }
   }

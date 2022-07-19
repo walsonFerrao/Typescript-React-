@@ -17,7 +17,7 @@ const [searchobj,setsearchobj]=useState<searchqueries>({
     <div >
       <SearchAppBar searchobj={searchobj} setsearchobj={setsearchobj}/>
       <Routes>
-      <Route path='/' element={<Mycomponent searchobj={searchobj}  setsearchobj={setsearchobj} />} />
+      <Route path='/' element={<Mycomponent searchobj={searchobj}   />} />
       <Route path='/full' element={<Fulldata/>} />
       </Routes>
     </div>

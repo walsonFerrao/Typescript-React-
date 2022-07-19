@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllByText, render, screen } from '@testing-library/react';
+import { getAllByText, getByTestId, render, screen } from '@testing-library/react';
 import {MyCard} from '../Components/Card/Card';
 import {BrowserRouter} from 'react-router-dom'
 
@@ -55,7 +55,7 @@ describe('testing the card component',()=>{
     test('checking the card component', () => {
         render(
           <BrowserRouter>
-        <MyCard prop={prop} myown={myown} index={1} />
+        <MyCard prop={prop} myown={myown} index={0} />
         </BrowserRouter>
         );
         const title = screen.getByText(/This is my book/i);
@@ -67,8 +67,17 @@ describe('testing the card component',()=>{
         expect(url[0]).toBeInTheDocument();
         expect(created[0]).toBeInTheDocument();
 
-      });
-})
 
+       const elementid=screen.getByTestId("element0")
+       expect(elementid).toBeInTheDocument();
+
+     
+
+
+      });
+
+
+   
+    })
 
 
