@@ -4,7 +4,6 @@ import { MyCard } from "../Components/Card/Card";
 import { Returnerror } from "../Components/Nothingfound/Returnerror";
 import { v4 as uuidv4 } from "uuid";
 import { Waypoint } from "react-waypoint";
-import SearchAppBar from "../Components/Navbar/Navbar";
 
 interface Data {
   author: string;
@@ -28,7 +27,7 @@ interface Data {
 type Mystate = {
   data: Data[];
   pagenumber: number;
-  tempdata: Data[];
+  isscroll: boolean;
   query: string;
 };
 interface searchqueries {
@@ -49,7 +48,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
     this.state = {
       data: [],
       pagenumber: 0,
-      tempdata: [],
+      isscroll:false,
       query: "",
     };
     this.myown = null;
@@ -57,13 +56,13 @@ export class Mycomponent extends Component<Myprops, Mystate> {
   }
 
   // writing a function resposible for fetching the data
-  getthedata = () => {
+  getthedata =async () => {
     if (this.state.pagenumber <= 50) {
       console.log(this.state.pagenumber);
+  
+       this.setState({...this.state,pagenumber:this.state.pagenumber+1})
 
-      this.setState({...this.state,pagenumber:this.state.pagenumber+1})
-
-      fetch(
+        fetch(
         `https://hn.algolia.com/api/v1/search_by_date?tags=story&page=${this.state.pagenumber}`
       )
         .then((res) => res.json())
@@ -71,6 +70,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
           this.setState({
             ...this.state,
             data: [...this.state.data, ...rea.hits],
+
           });
         })
         .catch((err) => {
@@ -79,33 +79,44 @@ export class Mycomponent extends Component<Myprops, Mystate> {
     }
   };
 
-  // trialfunc = function () {
-  //   console.log("i am trial");
-  // };
+  // componentWillMount()
+  // {
+  //   this.getthedata()
+  //   // console.log("iammmm")
 
-  // queryfunction(myqyery: string) {
-  //   this.setState({ ...this.state, query: myqyery });
+     
   // }
+  componentDidMount()
+  {
+ 
+  setTimeout(()=>{this.setState({...this.state,isscroll:true})},1000)
 
-  // fetching the data for every 10 seconds
-  componentDidMount() {
-    this.myown = setInterval(() => {
-      console.log("i am post");
-      this.getthedata();
-    }, 10000);
+  this.myown = setInterval(() => {
+    console.log("i am post");
+    this.getthedata();
+  }, 10000);
+  
   }
 
   
   // since the body and search query is in the different component using a temporary parameter for lifting the state up so that both the component can commnuicate
 
   render() {
+   
+if(this.state.pagenumber==0)
+{
+  this.getthedata()
+}
+
+ 
     if (!this.props.searchobj.query) {
       return (
         <div data-testid="dataifnoquery">
+
           {this.state.data.map((e,index) => (
             <MyCard prop={e}  key={uuidv4()}  myown={this.myown} index={index} />
           ))}
-          <Waypoint bottomOffset="-13px" onEnter={this.getthedata}></Waypoint>
+      {this.state.isscroll?<Waypoint bottomOffset="-10px" onEnter={this.getthedata} />:""}
         </div>
       );
     } else {
@@ -126,7 +137,7 @@ export class Mycomponent extends Component<Myprops, Mystate> {
         {this.myarray?.map((e,index) => (
           <MyCard prop={e} key={uuidv4()}  myown={this.myown} index={index}  />
         ))}
-        <Waypoint bottomOffset="-10px" onEnter={this.getthedata}></Waypoint>
+       {/* {this.state.pagenumber>=0? <Waypoint bottomOffset="-10px" onEnter={()=>{console.log("me");this.getthedata()}}></Waypoint>:""} */}
       </div>);
       } else
       

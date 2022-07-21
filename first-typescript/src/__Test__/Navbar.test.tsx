@@ -34,6 +34,7 @@ expect(myicon).toBeInTheDocument()
 
 const homeicon=screen.getByTestId("HomeIcon")
 expect(homeicon).toBeInTheDocument()
+fireEvent.click(homeicon)
 
 
 });
@@ -48,9 +49,12 @@ test('finding navsearch',async()=>{
   );
 
 const searchinput = screen.getByPlaceholderText(/Search by author/i);
-fireEvent.keyPress(searchinput , { target: { value: 'test' } })
+expect(searchinput).toHaveValue('')
+
+fireEvent.change(searchinput , { target: { value: 'test' } })
   
 expect(searchinput).toHaveValue('test')
- 
+
+
 
 })

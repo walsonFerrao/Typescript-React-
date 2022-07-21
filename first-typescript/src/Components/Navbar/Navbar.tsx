@@ -78,6 +78,7 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Myprops) {
             data-testid="my-icon"
           >
             <HomeIcon />
+
           </IconButton>
           <Typography
             variant="h6"
@@ -96,13 +97,9 @@ export default function SearchAppBar({ searchobj, setsearchobj }: Myprops) {
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => {
                 navigate("/");
-                var a;
-                if (a) {
-                  clearTimeout(a);
-                }
-                  a = setTimeout(() => {
+                
                     setsearchobj({ ...searchobj, query: e.target.value });
-                  }, 2);
+                  
               }}
             />
           </Search>
