@@ -52,6 +52,7 @@ export const MyCard: React.FC<myprop> = ({ prop,myown,index }) => {
   function takemetofulldata() {
     navigate("/full", { state: prop });
   }
+  
   return (
     <>
       <Card
